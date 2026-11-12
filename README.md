@@ -32,8 +32,7 @@ You pick a game from Discord's own list of detectable games, and the launcher st
 Windows 10 or 11 is required.
 
 1. Get the app in one of two ways:
-   - Download the installer (`Discord Fake Game Launcher Setup x.y.z.exe`) or the portable exe from the [Releases](../../releases) page, if a release has been published.
-   - Or [build it yourself](#build-from-source).
+   - Download the installer (`Discord Fake Game Launcher Setup x.y.z.exe`).
 2. Run it. The installer asks for administrator permission, installs to `C:\Program Files\Discord Fake Game Launcher` and adds desktop and Start menu shortcuts. The portable exe runs without installing.
 
 The app is not code-signed, so Windows SmartScreen may warn the first time. Choose **More info**, then **Run anyway**.
@@ -79,51 +78,6 @@ Everything is stored in `%APPDATA%\discord-fake-game-launcher-ui`:
 
 The app talks to `discord.com` for the games list and `cdn.discordapp.com` for game images. Images are loaded when shown and are not saved in your library. Builds made with an update feed also check GitHub for new releases.
 
-## Build from source
-
-You need [Node.js](https://nodejs.org) (LTS). The [.NET 8 SDK](https://dotnet.microsoft.com/download) is optional: without it, the placeholder program is compiled with the C# compiler that ships with Windows.
-
-```bash
-cd electron
-npm install
-```
-
-Run the app in development:
-
-```bash
-npm run build:dummy:bundle
-npm run dev
-```
-
-Build the installer and the portable exe into `electron/dist/`:
-
-```bash
-npm run dist:local
-```
-
-| Script | What it does |
-| --- | --- |
-| `npm run dev` | Starts the app from source |
-| `npm run build:dummy:bundle` | Builds `DummyGame.exe` into `build-resources/dummygame` |
-| `npm run dist:local` | Builds the installer and portable exe for personal use, with no update feed |
-| `npm run dist` | Builds the installer with the GitHub update feed from `package.json` |
-| `npm run dist:publish` | Builds and uploads the installer to GitHub Releases |
-
-If you publish your own fork, change `repository.url` and `build.publish` in `electron/package.json` to your repository first. Otherwise builds made with `npm run dist` look for updates in this repository.
-
-Pushing a tag named `release_X.Y.Z` runs the release workflow, which builds the installer and attaches it to a GitHub release.
-
-## Project layout
-
-| Path | Purpose |
-| --- | --- |
-| `electron/src/main.js` | Main process: windows, tray, launching, history, settings, updates |
-| `electron/src/safe-paths.js` | Turns executable names from the games list into safe file paths |
-| `electron/src/preload.js` | The API the UI is allowed to call |
-| `electron/src/renderer/` | The UI: `index.html`, `styles.css`, `ui.js`, `renderer.js` |
-| `electron/scripts/` | Build helpers |
-| `src/DummyGame/` | The placeholder window that runs under a game's exe name |
-| `src/Launcher/` | The old console launcher, kept only to forward to the app |
 
 ## Troubleshooting
 
