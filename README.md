@@ -86,6 +86,3 @@ The app talks to `discord.com` for the games list and `cdn.discordapp.com` for g
 - **"DummyGame.exe was not found" when launching from source.** Run `npm run build:dummy:bundle` in the `electron` folder.
 - **The app keeps running after closing the window.** That is the tray setting. Quit from the tray icon, or turn off **Keep running in the tray** in Settings.
 
-## Credits
-
-Based on [discord-fake-game-launcher](https://github.com/Jeardey/discord-fake-game-launcher) by Jeardey.
